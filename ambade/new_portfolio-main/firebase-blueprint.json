@@ -1,0 +1,43 @@
+{
+  "entities": {
+    "Project": {
+      "title": "Project",
+      "description": "A portfolio project",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "Project title" },
+        "description": { "type": "string", "description": "Short description" },
+        "image": { "type": "string", "format": "uri", "description": "Cover image URL" },
+        "tags": { "type": "array", "items": { "type": "string" }, "description": "List of tags/technologies" },
+        "content": { "type": "string", "description": "Detailed markdown or HTML content" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp" }
+      },
+      "required": ["title", "description", "image", "tags", "createdAt"]
+    },
+    "Blog": {
+      "title": "Blog",
+      "description": "A journal entry or blog post",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "Blog title" },
+        "excerpt": { "type": "string", "description": "Short excerpt" },
+        "content": { "type": "string", "description": "Detailed markdown or HTML content" },
+        "image": { "type": "string", "format": "uri", "description": "Cover image URL" },
+        "date": { "type": "string", "description": "Formatted date string" },
+        "author": { "type": "string", "description": "Author name" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp" }
+      },
+      "required": ["title", "excerpt", "content", "image", "date", "author", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/projects/{projectId}": {
+      "schema": { "$ref": "#/entities/Project" },
+      "description": "Collection of portfolio projects"
+    },
+    "/blogs/{blogId}": {
+      "schema": { "$ref": "#/entities/Blog" },
+      "description": "Collection of journal entries"
+    }
+  }
+}

@@ -1,0 +1,102 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // ===============================================================
+    // Assumed Data Model
+    // ===============================================================
+    //
+    // Collection: projects
+    // Document ID: auto-generated
+    // Fields:
+    //   - title: string (required, max 100 chars)
+    //   - description: string (required, max 500 chars)
+    //   - image: string (required, valid URL)
+    //   - tags: list of strings (required, max 10 items, max 30 chars each)
+    //   - content: string (optional, max 50000 chars)
+    //   - createdAt: timestamp (required)
+    //
+    // Collection: blogs
+    // Document ID: auto-generated
+    // Fields:
+    //   - title: string (required, max 150 chars)
+    //   - excerpt: string (required, max 500 chars)
+    //   - content: string (required, max 100000 chars)
+    //   - image: string (required, valid URL)
+    //   - date: string (required, max 50 chars)
+    //   - author: string (required, max 100 chars)
+    //   - createdAt: timestamp (required)
+    //
+    // ===============================================================
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && 
+             request.auth.token.email == "aditya.ambade2004@gmail.com" && 
+             request.auth.token.email_verified == true;
+    }
+
+    function isValidUrl(url) {
+      return url is string && (url.matches("^https://.*") || url.matches("^http://.*")) && url.size() < 1000;
+    }
+
+    function isValidTags(tags) {
+      return tags is list && tags.size() <= 10;
+    }
+
+    // ===============================================================
+    // Domain Validators
+    // ===============================================================
+
+    function isValidProject(data) {
+      return data.keys().hasAll(['title', 'description', 'image', 'tags', 'createdAt']) &&
+             data.title is string && data.title.size() > 0 && data.title.size() <= 100 &&
+             data.description is string && data.description.size() > 0 && data.description.size() <= 500 &&
+             isValidUrl(data.image) &&
+             isValidTags(data.tags) &&
+             (!('content' in data) || (data.content is string && data.content.size() <= 50000)) &&
+             data.createdAt is timestamp;
+    }
+
+    function isValidBlog(data) {
+      return data.keys().hasAll(['title', 'excerpt', 'content', 'image', 'date', 'author', 'createdAt']) &&
+             data.title is string && data.title.size() > 0 && data.title.size() <= 150 &&
+             data.excerpt is string && data.excerpt.size() > 0 && data.excerpt.size() <= 500 &&
+             data.content is string && data.content.size() > 0 && data.content.size() <= 100000 &&
+             isValidUrl(data.image) &&
+             data.date is string && data.date.size() > 0 && data.date.size() <= 50 &&
+             data.author is string && data.author.size() > 0 && data.author.size() <= 100 &&
+             data.createdAt is timestamp;
+    }
+
+    // ===============================================================
+    // Rules
+    // ===============================================================
+
+    match /projects/{projectId} {
+      // Anyone can read projects
+      allow read: if true;
+      // Only admin can create, update, delete
+      allow create: if isAdmin() && isValidProject(request.resource.data);
+      allow update: if isAdmin() && isValidProject(request.resource.data);
+      allow delete: if isAdmin();
+    }
+
+    match /blogs/{blogId} {
+      // Anyone can read blogs
+      allow read: if true;
+      // Only admin can create, update, delete
+      allow create: if isAdmin() && isValidBlog(request.resource.data);
+      allow update: if isAdmin() && isValidBlog(request.resource.data);
+      allow delete: if isAdmin();
+    }
+  }
+}
