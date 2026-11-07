@@ -18,6 +18,6 @@ To re-run after editing the file, add `--replace`. This repo has no `sanity.cli.
 
 ## Image
 
-`imageUrl` is a placeholder: `https://ambade.me/images/totem/totem-desktop.png`, which is `/images/totem/totem-desktop.png` from `public/` on the deployed site. Deploy the site first so that URL resolves, or upload an image to the Image field in Studio instead.
+`imageUrl` is a placeholder: `https://ambade.me/images/totem/totem-desktop.jpg`, which is `/images/totem/totem-desktop.jpg` from `public/` on the deployed site. Deploy the site first so that URL resolves, or upload an image to the Image field in Studio instead.
 
 **Before publishing:** review the post copy, check both bodies, then publish each document in Studio.
