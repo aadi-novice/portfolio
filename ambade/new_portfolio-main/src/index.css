@@ -1,13 +1,71 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
-@import "tailwindcss";
+/* Hallmark · shape: Index-First (draw b17999, swapped from Narrative Workflow: a portfolio has no real stage sequence) · genre: editorial · theme: Editorial (deal 1/3, seed personal-portfolio-backend-engineer-3cb1·09249458·2026-11-07·r0) · redesign: full · job: hire
+ * hero: Index (/), Banner (/work, /journal, /contact, /work/:slug, /journal/:slug), Stage (/about) · nav: edge-aligned, wordmark left, four links and one outlined action right (swapped from search-led: nothing to search) · footer: statement, the email set large over the links · imagery: the user's own, Sanity project covers and the portrait, no library photographs · signature: the index of work and writing as the first screen
+ * axes: light/display-condensed/chromatic-green · posture: restrained · contrast: pass · fold: pass · draw: b17999 · v2.0.0 */
+/* Hallmark · pre-emit critique: P4 H4 E4 S3 R5 V4 · weakest: S, an index of projects reads like any developer portfolio; every row is Aditya's own Sanity entry with its real date and line, never a sample */
+/* Hallmark · waive 49b · the second journal title wraps at 375 · "The Udacity AWS AI Practitioner Challenge" is the post's own title from Sanity and cannot shorten */
+/* Hallmark · waive 44c · Index hero, the list of work is its visual and runs to the fold · the linter measures the head block alone; the Kineti-AI row and its cover fill the rest of the first screen */
+/* Hallmark · waive 79 · Index hero, the rows of work and writing fill the space under the head · nothing in that band is empty; the index is the hero's visual by posture */
+/* Hallmark · hero-review: fix · 5 findings · 4 resolved 1 unresolved (dates for the posts and lab entries need the owner) */
+/* Hallmark · waive 78 · project and journal pages are long documents, their h2s are the CMS article's own subheads · set in a 68ch prose column under the page's h1 */
+/* Hallmark · answered F19 · the fourth weight is 600 on strong text inside the Sanity article bodies, kept so emphasis still reads */
+/* Hallmark · dismissed 28a · the lazy image is inside the article body, below the cover, which carries fetchpriority high */
+/* Hallmark · dismissed 77 · /journal and /contact are an index and a form page; their sections are what the content holds */
+/* Hallmark · dropped "99.9%" · 46a names an unlabelled figure; the statement beside it stays */
+/* Hallmark · dropped Read.cv, X / Twitter · both pointed at # with no address; they come back when the owner gives the URLs */
+/* Hallmark · dropped say_hello. · finish review: the About close printed the email beside the footer statement that already carries it; GitHub and LinkedIn moved under Want to collab? */
+/* Hallmark · finish-review: subagent · 8 findings · 7 resolved 1 partial (the Kineti-AI tech stack is a flat bullet list in Sanity; it needs a table or techSpecBlock in Studio) */
+/* Hallmark · dropped kineti.png from / · Totem's capture now leads the home index; the Kineti-AI cover stays on /work and its case page */
+/* Hallmark · dropped 2024 · the About availability line said Q3 and Q4 2024; the latest resume says India, open to relocation or remote */
+/* Hallmark · answered F20 · the row head is a single column of role, employer and dates, not a grid with an orphan */
+/* Hallmark · dropped #overview, #content · the decorative side rail on the project page linked them; the section ids stay */
+/* Hallmark · dropped /about, {`/journal/${blogSlug}`}, {`/work/${featuredProject.slug?.current || featuredProject.slug || featuredProject._id || featuredProject.id}`}, {`/work/${projectSlug}`} · same routes, now written {item.to} and {`/journal/${slugOf(...)}`} through src/lib/content.ts; every rendered href is kept */
+/* Hallmark · dropped AWS-Free-1024x576.jpg from /journal · the list shows the lead post's cover only; the Udacity cover stays on its own post page */
+/* Hallmark · dropped button, button[type=button] · 70: neither form sent anything; both now submit to a handler that opens the visitor's mail app addressed to aditya@ambade.me */
+/* Hallmark · dropped AB6AXuC89qB1ib8NtDisWWuF4uDhdNWRuCblOtm5gDeUeO1XJRYuWuYHPLYO7t4JzEfmWpxChny_8_G1ECiBFPfsGkjq9vmeisxIXdXf9YI3r3v9pVsX6LrNmS-TSWiGHnC4FNDo1uq2nE-lxa559HZekFhkW_WaI7JKNmS-aF9-_gPlj1GuKJgseUoUeTjOzASlUWGXkqBt3jivQvgM1onFOWeIk7ygQbV4ea0TzYCreCG7wKUhvAf6-HqSl6N4jW_gRCLioWVX3zBrYPo, AB6AXuBwqEN71vu5rjqw1VvhZlAqXiXBpaS2ZN_8AOr7FOVQZh3tyObdLbbBMpH8PU7QGAoORjxS2M8fRRrSuOFh2pQO-wt6Wa_t_no4rnk3wZ2BjYAHZoxRbjnm-ZPeQnTka1h637J62bqjs0cpe7pa066DY_oV933lZUZW4U55_qnHLOFMj38vqJxQ1k67Hn9US2rzYh0tNxLBSQ_eJ8p1K0CGOyU3QOOqx8TQDxkasObe3on9d47N3Ja-jVIW4oxurb7OoQKOJeMoRO4, AB6AXuBgBG83_bpSJxaG8zUiDfGpV2bOwQ4IQgNVHn202jthaifsdpQHYYo-7CwhWnAhZXy1Jg_bEuiLEUid7cEt7S9Zd0vFmNxAzFuJrdRewa663sSMtCqaqojEMENRGDHCww9NV2zsjE07ZSwUD4_3gaSWjB0f6NF0r5Gh2iFasqIhiULNsrVB5K5Vu1aZq5RHuMc_LVek41lt6DIbcCN9lvcVabUK2YOAPd_Iqa_NrwTKAOvHrlhl2s7hsPSpF9KFxj4e12pmEvE_AKM, AB6AXuCBr_VORo7JKGyhQOeqUvhmPoDwKc0sFOijQB1ZjST9KFwxEwqgH_4-iPL64VMITqH-B2sDl3l31loTYNPftjCISjfWXaXk15M-qGkJBU4-3qRMMWWQHiXBIjiKAkXZmxEitJEv90bafDLOVXYH81JDbc4M3sIXOWR7AFteYDHJ6HCx4vcNCBkSIEVqlk5FKocG2r0aTQwNxvd9_QXAClErKFpOHAPFa73eUc6sv01CLBKlffFOu8RoL8_VuV91mmEIZqaduwWCpts · AI stock pictures of server racks, a retro computer, a code screen and a texture, none of them the owner's work */
+/* Hallmark · dropped the PROJECT_INDEX side rail, the journal pagination and the AI stock pictures (server racks, retro computer, code screen, abstract texture) · buttons with no handler and pictures of nothing the site is about */
+/* Hallmark · reworded "aditya. ambade" to "Aditya Ambade" · 67 and 54: tracked capitals and snake_case labels become sentence case */
+/* Hallmark · reworded "technical_stack" to "Kineti-AI (its stack line moved under the title)" · 67 and 54: tracked capitals and snake_case labels become sentence case */
+/* Hallmark · reworded "labs" to "Labs" · 67 and 54: tracked capitals and snake_case labels become sentence case */
+/* Hallmark · reworded "core_grid" to "Core grid" · 67 and 54: tracked capitals and snake_case labels become sentence case */
+/* Hallmark · reworded "initiate_contact" to "Initiate contact" · 67 and 54: tracked capitals and snake_case labels become sentence case */
+/* Hallmark · reworded "selected works_" to "Selected work" · 67 and 54: tracked capitals and snake_case labels become sentence case */
+/* Hallmark · reworded "core_capabilities" to "Core capabilities" · 67 and 54: tracked capitals and snake_case labels become sentence case */
+/* Hallmark · reworded "systems_arch" to "Systems architecture" · 67 and 54: tracked capitals and snake_case labels become sentence case */
+/* Hallmark · reworded "sec_ops" to "Security operations" · 67 and 54: tracked capitals and snake_case labels become sentence case */
+/* Hallmark · reworded "data_engineering" to "Data engineering" · 67 and 54: tracked capitals and snake_case labels become sentence case */
+/* Hallmark · reworded "ui_interaction" to "UI interaction" · 67 and 54: tracked capitals and snake_case labels become sentence case */
+/* Hallmark · reworded "ready_to_build?" to "Ready to build?" · 67 and 54: tracked capitals and snake_case labels become sentence case */
+/* Hallmark · reworded "about" to "Architect of high-performance digital monoliths." · 67 and 54: tracked capitals and snake_case labels become sentence case */
+/* Hallmark · reworded "the_story" to "The story" · 67 and 54: tracked capitals and snake_case labels become sentence case */
+/* Hallmark · reworded "tech_stack" to "Tech stack" · 67 and 54: tracked capitals and snake_case labels become sentence case */
+/* Hallmark · reworded "engineering" to "Engineering" · 67 and 54: tracked capitals and snake_case labels become sentence case */
+/* Hallmark · reworded "ui/ux_design" to "UI/UX design" · 67 and 54: tracked capitals and snake_case labels become sentence case */
+/* Hallmark · reworded "infrastructure" to "Infrastructure" · 67 and 54: tracked capitals and snake_case labels become sentence case */
+/* Hallmark · reworded "arsenal" to "The tools" · 67 and 54: tracked capitals and snake_case labels become sentence case */
+/* Hallmark · reworded "the_tools" to "The tools" · 67 and 54: tracked capitals and snake_case labels become sentence case */
+/* Hallmark · reworded "want_to_collab?" to "Want to collab?" · 67 and 54: tracked capitals and snake_case labels become sentence case */
+/* Hallmark · reworded "say_hello." to "Say hello." · 67 and 54: tracked capitals and snake_case labels become sentence case */
+/* Hallmark · reworded "let's build" to "Let’s build." · 67 and 54: tracked capitals and snake_case labels become sentence case */
+/* Hallmark · reworded "availability" to "Availability" · 67 and 54: tracked capitals and snake_case labels become sentence case */
+/* Hallmark · reworded "hq" to "Where" · 67 and 54: tracked capitals and snake_case labels become sentence case */
+/* Hallmark · reworded "external_nodes" to "Elsewhere" · 67 and 54: tracked capitals and snake_case labels become sentence case */
+/* Hallmark · reworded "journal _log" to "Journal" · 67 and 54: tracked capitals and snake_case labels become sentence case */
 
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,500..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400&display=swap');
+@import "tailwindcss";
+@import "./tokens.css";
+@import "./base.css" layer(base);
+@import "./site.css" layer(components);
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/* The Admin screen still reads these names; the public pages use tokens.css. */
 @theme {
   --color-on-primary-fixed: #171e00;
   --color-on-secondary: #5b005b;
-  --color-primary: #ffffff;
+  --color-primary: #f7f8fb;
   --color-surface-variant: #31353c;
-  --color-tertiary: #ffffff;
+  --color-tertiary: #f7f8fb;
   --color-on-surface: #dfe2eb;
   --color-outline-variant: #444933;
   --color-on-primary: #293500;
@@ -40,7 +98,6 @@
   --color-surface-container-high: #262a31;
   --color-surface-container-lowest: #0a0e14;
   --color-on-tertiary-container: #007518;
-  --color-error: #ffb4ab;
   --color-inverse-primary: #526600;
   --color-surface-container: #1c2026;
   --color-on-background: #dfe2eb;
@@ -50,183 +107,45 @@
   --color-primary-fixed-dim: #aed500;
   --color-on-surface-variant: #c5c9ac;
   --color-on-error: #690005;
+  --color-admin-panel: oklch(30% 0.012 260 / 0.4);
 
-  --font-headline: "Space Grotesk", sans-serif;
-  --font-body: "Inter", sans-serif;
-  --font-label: "Space Grotesk", sans-serif;
-
-  --radius: 0px;
-  --radius-md: 0px;
-  --radius-lg: 0px;
-  --radius-xl: 0px;
-  --radius-2xl: 0px;
-  --radius-3xl: 0px;
+  --font-headline: var(--font-display);
+  --font-label: var(--font-display);
 }
 
-.glass-card, .glass-panel, .glass-container, .glass-article {
-    background: rgba(49, 53, 60, 0.4);
-    backdrop-filter: blur(40px);
-    -webkit-backdrop-filter: blur(40px);
-}
-
-.hero-text-mask {
-    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
-    color: transparent;
-}
-.bg-grain {
-    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuAs8PYEkv4AxuROOlScco1Yj4ixeQILFGN85P8BInXyjDr386qGdoRMCHQZp_VniKEpVXbyA5LwzPWsUWDFaad3RUMVK8oBW50iJfzqKvnLdPiA4uIXSxAxjYNY4dsoL53N3zUsaBf2n_F1QRUr0D07rrI1NpZiHvlMLUopCfM0pEOgnedeRWJYNhEyJvpmeGpojteSrY8GvQuaHUDfZMwwFK8b7Q2jN6Mc4N2tBT-J5KqoSBFSYIAHNFeWJn831iEq3SHxoG-_G-U);
-    opacity: 0.05;
-}
-.glow-sphere {
-    filter: blur(120px);
-    opacity: 0.15;
-    background: radial-gradient(circle, #c7f300 0%, #fe00fe 100%);
-}
-.material-symbols-outlined {
-    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-}
-.editorial-text-bleed {
-    letter-spacing: -0.05em;
-    line-height: 0.8;
-}
-.grid-bg {
-    background-image: linear-gradient(to right, rgba(199, 243, 0, 0.05) 1px, transparent 1px),
-                      linear-gradient(to bottom, rgba(199, 243, 0, 0.05) 1px, transparent 1px);
-    background-size: 40px 40px;
-}
-.glass-article:hover .glass-overlay {
-    backdrop-filter: blur(12px);
-    background-color: rgba(199, 243, 0, 0.05);
-}
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: #0a0e14; }
-::-webkit-scrollbar-thumb { background: #c7f300; }
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
-@import "@fontsource-variable/geist";
+.glass-panel { background: var(--color-admin-panel); }
 
 @custom-variant dark (&:is(.dark *));
 
+/* shadcn/ui, pointed at the Hallmark tokens (export-formats.md § shadcn/ui).
+   Its accent and muted names collide with Hallmark's, so they stay out of @theme here. */
 @theme inline {
-    --font-heading: var(--font-sans);
-    --font-sans: 'Geist Variable', sans-serif;
-    --color-sidebar-ring: var(--sidebar-ring);
-    --color-sidebar-border: var(--sidebar-border);
-    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-    --color-sidebar-accent: var(--sidebar-accent);
-    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-    --color-sidebar-primary: var(--sidebar-primary);
-    --color-sidebar-foreground: var(--sidebar-foreground);
-    --color-sidebar: var(--sidebar);
-    --color-chart-5: var(--chart-5);
-    --color-chart-4: var(--chart-4);
-    --color-chart-3: var(--chart-3);
-    --color-chart-2: var(--chart-2);
-    --color-chart-1: var(--chart-1);
     --color-ring: var(--ring);
     --color-input: var(--input);
     --color-border: var(--border);
     --color-destructive: var(--destructive);
-    --color-accent-foreground: var(--accent-foreground);
-    --color-accent: var(--accent);
-    --color-muted-foreground: var(--muted-foreground);
-    --color-muted: var(--muted);
     --color-secondary-foreground: var(--secondary-foreground);
-    --color-secondary: var(--secondary);
     --color-primary-foreground: var(--primary-foreground);
-    --color-primary: var(--primary);
     --color-popover-foreground: var(--popover-foreground);
     --color-popover: var(--popover);
     --color-card-foreground: var(--card-foreground);
     --color-card: var(--card);
     --color-foreground: var(--foreground);
-    --color-background: var(--background);
-    --radius-sm: calc(var(--radius) * 0.6);
-    --radius-md: calc(var(--radius) * 0.8);
+    --radius-sm: var(--radius);
+    --radius-md: var(--radius);
     --radius-lg: var(--radius);
-    --radius-xl: calc(var(--radius) * 1.4);
-    --radius-2xl: calc(var(--radius) * 1.8);
-    --radius-3xl: calc(var(--radius) * 2.2);
-    --radius-4xl: calc(var(--radius) * 2.6);
+    --radius-xl: var(--radius);
 }
 
 :root {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.205 0 0);
-    --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.708 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
-    --radius: 0.625rem;
-    --sidebar: oklch(0.985 0 0);
-    --sidebar-foreground: oklch(0.145 0 0);
-    --sidebar-primary: oklch(0.205 0 0);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.97 0 0);
-    --sidebar-accent-foreground: oklch(0.205 0 0);
-    --sidebar-border: oklch(0.922 0 0);
-    --sidebar-ring: oklch(0.708 0 0);
-}
-
-.dark {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.205 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.205 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.556 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
-    --sidebar: oklch(0.205 0 0);
-    --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.488 0.243 264.376);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.269 0 0);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.556 0 0);
-}
-
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed overflow-x-hidden;
-  }
-  html {
-    @apply font-sans;
-  }
+    --background: var(--color-paper); --foreground: var(--color-ink);
+    --card: var(--color-paper-2); --card-foreground: var(--color-ink);
+    --popover: var(--color-paper-2); --popover-foreground: var(--color-ink);
+    --primary: var(--color-accent); --primary-foreground: var(--color-accent-ink);
+    --secondary: var(--color-paper-3); --secondary-foreground: var(--color-ink-2);
+    --muted: var(--color-paper-2); --muted-foreground: var(--color-muted);
+    --accent: var(--color-paper-3); --accent-foreground: var(--color-ink);
+    --destructive: var(--color-error);
+    --border: var(--color-rule); --input: var(--color-rule); --ring: var(--color-focus);
+    --radius: var(--radius-card);
 }

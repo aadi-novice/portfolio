@@ -1,0 +1,33 @@
+[
+ {
+  "mode": "redesign",
+  "depth": "full",
+  "scope": "site",
+  "shape": "Index-First",
+  "theme": "editorial",
+  "axes": "light/display-condensed/chromatic-green",
+  "hero": "Index",
+  "nav": "edge-aligned",
+  "footer": "statement",
+  "imagery": "user: Sanity covers and portrait",
+  "photos": [],
+  "entry": "none",
+  "fingerprint": "index-first/index/edge/statement/rows/split",
+  "sections": [
+   "Hero Index",
+   "Split (case)",
+   "Statement",
+   "Form on well",
+   "Footer statement"
+  ],
+  "signature": "the index of work and writing as the first screen",
+  "waived": [
+   "49b",
+   "44c",
+   "79",
+   "78"
+  ],
+  "prompt": "personal portfolio of a backend and AI/ML engineer; hire",
+  "date": "2026-11-07"
+ }
+]
