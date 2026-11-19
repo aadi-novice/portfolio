@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { client, projectsQuery } from '../lib/sanityClient';
 import { slugOf, imageOf, monthYear } from '../lib/content';
 import { projects as fallbackProjects } from '../data/projects';
-import { totem, resumeProjects } from '../data/totem';
+import { resumeProjects } from '../data/totem';
+import { localProjects } from '../data/local';
 
 const capabilities = [
   { title: 'Systems architecture', line: 'Scaling massive distributed systems with high availability.' },
@@ -49,13 +50,13 @@ export default function Work() {
       {/* The projects, each opened beside its cover */}
       <section className="section--s" aria-label="Projects">
         <div className="container entries">
-          {[totem, ...projects].map((project, index) => {
+          {[...localProjects, ...projects].map((project, index) => {
             const projectSlug = slugOf(project);
             const imgSrc = imageOf(project, 1400);
             const date = monthYear(project);
             return (
               <article key={project._id || project.id} className="grid12 entry">
-                <figure className="entry__figure">
+                <figure className="entry__figure" data-kind={String(project._id || '').startsWith('local') ? 'product' : undefined}>
                   <Link to={`/work/${projectSlug}`} className="photo photo--43" tabIndex={-1} aria-hidden="true">
                     {imgSrc && (
                       <img

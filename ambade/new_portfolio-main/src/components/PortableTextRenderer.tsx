@@ -16,13 +16,16 @@ const CodeBlockComponent = ({ value }: any) => (
 const ImageBlockComponent = ({ value }: any) => {
   const imageUrl = value.image?.asset
     ? urlFor(value.image).width(1600).url()
-    : null;
+    : value.imageUrl || null;
   return (
     <figure>
-      {imageUrl && (
+      {imageUrl && value.image?.asset && (
         <div className="photo photo--wide">
           <img src={imageUrl} alt={value.altText || value.caption || ''} loading="lazy" width={1600} height={900} />
         </div>
+      )}
+      {imageUrl && !value.image?.asset && (
+        <img className="figure-img" src={imageUrl} alt={value.altText || value.caption || ''} loading="lazy" />
       )}
       {(value.label || value.caption) && (
         <figcaption className="caption">

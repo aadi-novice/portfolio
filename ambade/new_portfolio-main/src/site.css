@@ -75,6 +75,8 @@ a.photo { display: block; }
 .photo--43 { aspect-ratio: 4 / 3; }
 .photo--45 { aspect-ratio: 4 / 5; }
 .photo--wide { aspect-ratio: 16 / 9; }
+[data-kind="product"] img { object-position: 50% 0; }
+.prose .figure-img { width: 100%; height: auto; outline: 1px solid color-mix(in oklab, var(--color-ink) 8%, transparent); outline-offset: -1px; }
 
 /* ── Page heads (Banner) ──────────────────────────────────────────────── */
 .page-head { padding-block: var(--space-2xl) var(--space-3xl); }

@@ -5,7 +5,8 @@ import { slugOf, imageOf, monthYear, yearOf, openingLine } from '../lib/content'
 import { projects as fallbackProjects } from '../data/projects';
 import { blogs as fallbackBlogs } from '../data/blogs';
 import ContactForm from '../components/ContactForm';
-import { totem, resumeProjects } from '../data/totem';
+import { resumeProjects } from '../data/totem';
+import { localProjects, localPosts } from '../data/local';
 
 const latestProjectQuery = `*[_type == "project"] | order(publishedAt desc)[0] {
   _id,
@@ -103,7 +104,7 @@ export default function Home() {
           </div>
 
           <ul className="index" aria-label="Work and writing">
-            {[totem, ...projects].map((project, i) => {
+            {[...localProjects, ...projects].map((project, i) => {
               const cover = i === 0 ? imageOf(project, 1000) : '';
               if (cover) {
                 return (
@@ -140,7 +141,7 @@ export default function Home() {
                 <p className="index__meta">{entry.kind}</p>
               </li>
             ))}
-            {posts.map((post) => (
+            {[...localPosts, ...posts].map((post) => (
               <li key={post._id || post.id} className="index__row">
                 <h2 className="index__title">
                   <Link to={`/journal/${slugOf(post)}`}>{post.title}</Link>

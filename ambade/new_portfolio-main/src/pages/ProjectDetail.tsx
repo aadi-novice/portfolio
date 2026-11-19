@@ -4,7 +4,7 @@ import { client, projectBySlugQuery } from '../lib/sanityClient';
 import { imageOf, monthYear } from '../lib/content';
 import PortableTextRenderer from '../components/PortableTextRenderer';
 import { projects as fallbackProjects } from '../data/projects';
-import { totem } from '../data/totem';
+import { findLocalProject } from '../data/local';
 
 export default function ProjectDetail() {
   const { slug } = useParams();
@@ -14,8 +14,9 @@ export default function ProjectDetail() {
   useEffect(() => {
     const fetchProject = async () => {
       if (!slug) return;
-      if (slug === 'totem') {
-        setProject(totem);
+      const localProject = findLocalProject(slug);
+      if (localProject) {
+        setProject(localProject);
         setLoading(false);
         return;
       }
@@ -67,7 +68,7 @@ export default function ProjectDetail() {
                 )}
                 {project.demoUrl && (
                   <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className={project.githubUrl ? 'btn btn--quiet' : 'btn'}>
-                    {project.earlyAccessUrl ? 'Visit gettotem.app' : 'Open the live demo'}
+                    {project.demoLabel || (project.earlyAccessUrl ? 'Visit gettotem.app' : 'Open the live demo')}
                   </a>
                 )}
                 {project.earlyAccessUrl && (
@@ -79,7 +80,7 @@ export default function ProjectDetail() {
             )}
           </div>
           {heroImageUrl && (
-            <figure className="detail-head__figure">
+            <figure className="detail-head__figure" data-kind={String(project._id || '').startsWith('local') ? 'product' : undefined}>
               <div className="photo photo--45">
                 <img src={heroImageUrl} alt="" width={1200} height={1500} fetchPriority="high" referrerPolicy="no-referrer" />
               </div>

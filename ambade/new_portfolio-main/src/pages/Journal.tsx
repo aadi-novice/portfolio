@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { client, postsQuery, postBySlugQuery } from '../lib/sanityClient';
 import { slugOf, imageOf, fullDate, openingLine } from '../lib/content';
 import { blogs as fallbackBlogs } from '../data/blogs';
+import { localPosts } from '../data/local';
 
 export default function Journal() {
   const [blogs, setBlogs] = useState<any[]>([]);
@@ -14,13 +15,13 @@ export default function Journal() {
       try {
         const data = await client.fetch(postsQuery);
         if (data && data.length > 0) {
-          setBlogs(data);
+          setBlogs([...localPosts, ...data]);
         } else {
-          setBlogs(fallbackBlogs);
+          setBlogs([...localPosts, ...fallbackBlogs]);
         }
       } catch (error) {
         console.error('Sanity fetch error:', error);
-        setBlogs(fallbackBlogs);
+        setBlogs([...localPosts, ...fallbackBlogs]);
       } finally {
         setLoading(false);
       }
@@ -31,6 +32,10 @@ export default function Journal() {
   const leadSlugForFetch = blogs[0] ? slugOf(blogs[0]) : '';
   useEffect(() => {
     if (!leadSlugForFetch || !blogs[0]?._id) return;
+    if (blogs[0].body) {
+      setLeadOpening(openingLine(blogs[0].body, blogs[0].title || ''));
+      return;
+    }
     client
       .fetch(postBySlugQuery, { slug: leadSlugForFetch })
       .then((data: any) => setLeadOpening(openingLine(data?.body, data?.title || '')))

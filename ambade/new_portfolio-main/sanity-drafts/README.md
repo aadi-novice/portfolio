@@ -21,3 +21,6 @@ To re-run after editing the file, add `--replace`. This repo has no `sanity.cli.
 `imageUrl` is a placeholder: `https://ambade.me/images/totem/totem-desktop.jpg`, which is `/images/totem/totem-desktop.jpg` from `public/` on the deployed site. Deploy the site first so that URL resolves, or upload an image to the Image field in Studio instead.
 
 **Before publishing:** review the post copy, check both bodies, then publish each document in Studio.
+
+## nyayasearch.ndjson
+Nyaya Search project and two journal posts, as drafts. Import the same way: `npx sanity dataset import sanity-drafts/nyayasearch.ndjson production`. In-body images use an `imageUrl` field; if the imageBlock schema only takes an uploaded image, re-add those three charts in Studio.

@@ -4,6 +4,7 @@ import { client, postBySlugQuery } from '../lib/sanityClient';
 import { imageOf, monthYear } from '../lib/content';
 import PortableTextRenderer from '../components/PortableTextRenderer';
 import { blogs as fallbackBlogs } from '../data/blogs';
+import { findLocalPost } from '../data/local';
 
 export default function JournalDetail() {
   const { slug } = useParams();
@@ -13,6 +14,12 @@ export default function JournalDetail() {
   useEffect(() => {
     const fetchBlog = async () => {
       if (!slug) return;
+      const localPost = findLocalPost(slug);
+      if (localPost) {
+        setBlog(localPost);
+        setLoading(false);
+        return;
+      }
       try {
         const data = await client.fetch(postBySlugQuery, { slug });
         if (data) {
